@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico do Mercado de Trabalho - IBGE</title>
+    
+    <!-- Carregando a API do Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Helvetica', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .chart-header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 20px;
+        }
+        .chart-title {
+            color: #1b4c6e;
+            font-size: 28px;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        .chart-subtitle {
+            color: #6c757d;
+            font-size: 18px;
+            margin: 0;
+        }
+        #piechart {
+            width: 100%;
+            height: 500px;
+            margin: 20px 0;
+        }
+        .chart-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: stretch;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+        }
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            flex: 1;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        .legend-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+        .legend-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .source {
+            font-size: 14px;
+            color: #6c757d;
+            font-style: italic;
+            text-align: left;
+            flex: 1;
+        }
+        .instructions {
+            background: #e8f4fc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .instructions h3 {
+            color: #1b4c6e;
+            margin-top: 0;
+        }
+        .instructions ol {
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            .chart-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            .source {
+                text-align: left;
+            }
+            .chart-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h1 class="chart-title">População brasileira de acordo com as divisões do mercado de trabalho</h1>
+                <p class="chart-subtitle">2º trimestre de 2025 (em mil pessoas)</p>
+            </div>
+            
+            <div id="piechart"></div>
+            
+            <div class="chart-footer">
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #1b6fa8;"></div>
+                        <div class="legend-text">Ocupados: 102.316 mil pessoas</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #ff7f0f;"></div>
+                        <div class="legend-text">Desocupados: 6.253 mil pessoas</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #2ca02c;"></div>
+                        <div class="legend-text">Fora da força de trabalho: 65.510 mil pessoas</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #9467bd;"></div>
+                        <div class="legend-text">Abaixo da idade de trabalhar: 38.646 mil pessoas</div>
+                    </div>
+                </div>
+                
+                <div class="source">
+                    Fonte: IBGE - Pesquisa Nacional por Amostra de Domicílios Contínua (PNAD Contínua)
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions chart-card">
+            <h3>Como Usar Este Gráfico no Canva</h3>
+            <ol>
+                <li>Salve este código como um arquivo HTML (ex: grafico-ibge.html)</li>
+                <li>Faça upload do arquivo para o GitHub Pages, Netlify ou outro serviço de hospedagem</li>
+                <li>No Canva, adicione o aplicativo "Embed HTML" (disponível para assinantes Canva Pro)</li>
+                <li>Cole o URL do seu gráfico hospedado</li>
+                <li>Ajuste o tamanho e a posição do gráfico em seu slide</li>
+            </ol>
+            <p><strong>Para usuários do Canva gratuito:</strong> Use a opção de captura de tela ou adicione um link para a versão online do gráfico.</p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Carregar a biblioteca de visualização e o pacote corechart
+        google.charts.load('current', {'packages':['corechart']});
+        
+        // Definir uma callback para quando a biblioteca estiver carregada
+        google.charts.setOnLoadCallback(drawChart);
+        
+        function drawChart() {
+            // Criar o data table com os dados corretos
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Categoria');
+            data.addColumn('number', 'População');
+            data.addRows([
+                ['Ocupados', 102.316],
+                ['Desocupados', 6.253],
+                ['Fora da força de trabalho', 65.510],
+                ['Abaixo da idade', 38.646]
+            ]);
+            
+            // Configurar opções do gráfico - agora é uma pizza sólida (não donut)
+            var options = {
+                title: '',
+                pieHole: 0, // Alterado para 0 para gráfico de pizza sólida
+                pieSliceText: 'none',
+                pieSliceTextStyle: {
+                    color: 'white',
+                    fontSize: 14,
+                    bold: true
+                },
+                slices: {
+                    0: { color: '#1b6fa8' },   // Azul para Ocupados
+                    1: { color: '#ff7f0f' },   // Laranja para Desocupados
+                    2: { color: '#2ca02c' },   // Verde para Fora da força de trabalho
+                    3: { color: '#9467bd' }    // Roxo para Abaixo da idade de trabalhar
+                },
+                chartArea: {
+                    left: 20,
+                    top: 20,
+                    width: '90%',
+                    height: '80%'
+                },
+                legend: {
+                    position: 'labeled',
+                    textStyle: {
+                        fontSize: 14
+                    }
+                },
+                tooltip: {
+                    text: 'both'
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                    startup: true
+                },
+                fontSize: 14,
+                fontName: 'Helvetica'
+            };
+            
+            // Instanciar e desenhar o gráfico
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+            
+            // Redimensionar o gráfico quando a janela for alterada
+            window.addEventListener('resize', function() {
+                chart.draw(data, options);
+            });
+        }
+    </script>
+</body>
+</html>
